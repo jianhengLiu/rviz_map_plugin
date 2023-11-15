@@ -368,35 +368,23 @@ void MeshDisplay::ignoreIncomingMessages() {
 // Data manipulators
 
 void MeshDisplay::setGeometry(shared_ptr<Geometry> geometry) {
-  // ROS_ERROR("setGeometry: ");
   // Create the visual
-  // ROS_ERROR("1");
   std::shared_ptr<MeshVisual> visual = addNewVisual();
-  // ROS_ERROR("2");
   visual->setGeometry(*geometry);
-  // ROS_ERROR("3");
   if (isEnabled()) {
-    // ROS_ERROR("4");
     updateMesh();
-    // ROS_ERROR("5");
     updateNormals();
-    // ROS_ERROR("6");
     updateWireframe();
-    // ROS_ERROR("7");
   }
-  // ROS_ERROR("8");
   setStatus(rviz::StatusProperty::Ok, "Display", "");
-  // ROS_ERROR("setGeometry: 1");
 }
 
 void MeshDisplay::setVertexColors(vector<Color> &vertexColors) {
-  // ROS_ERROR("setVertexColors: ");
   std::shared_ptr<MeshVisual> visual = getLatestVisual();
   if (visual) {
     visual->setVertexColors(vertexColors);
   }
   updateMesh();
-  // ROS_ERROR("setVertexColors: 1");
 }
 
 void MeshDisplay::clearVertexCosts() {
@@ -422,13 +410,11 @@ void MeshDisplay::setVertexNormals(vector<Normal> &vertexNormals) {
 
 void MeshDisplay::setMaterials(vector<Material> &materials,
                                vector<TexCoords> &texCoords) {
-  // ROS_ERROR("setVertexColors: ");
   std::shared_ptr<MeshVisual> visual = getLatestVisual();
   if (visual) {
     visual->setMaterials(materials, texCoords);
   }
   updateMesh();
-  // ROS_ERROR("setVertexColors: 1");
 }
 
 void MeshDisplay::addTexture(Texture &texture, uint32_t textureIndex) {
@@ -760,6 +746,11 @@ void MeshDisplay::processMessage(
     ROS_ERROR("Error transforming from frame '%s' to frame '%s'",
               meshMsg->header.frame_id.c_str(),
               qPrintable(rviz::Display::fixed_frame_));
+    return;
+  }
+
+  if (meshMsg->mesh_geometry.vertices.size() == 0){
+    ROS_ERROR("Received mesh is empty!");
     return;
   }
 
