@@ -196,10 +196,12 @@ MeshVisual::~MeshVisual() {
       sstmVertexCostsMesh.str());
 
   // ROS_ERROR("157");
-  try {
-    m_displayContext->getSceneManager()->destroySceneNode(m_sceneNode);
-  } catch (Ogre::Exception &e) {
-  }
+  // TODO: Not sure if this is necessary
+  // try {
+  //   m_displayContext->getSceneManager()->destroySceneNode(m_sceneNode);
+  // } catch (...) {
+  //   ROS_ERROR("Error destroying scene node:");
+  // }
   // ROS_ERROR("158");
   sstm.str("");
   sstm.flush();

@@ -805,7 +805,8 @@ void MeshDisplay::incomingGeometry(
 void MeshDisplay::incomingVertexColors(
     const mesh_msgs::MeshVertexColorsStamped::ConstPtr &colorsStamped) {
   if (colorsStamped->uuid.compare(m_lastUuid) != 0) {
-    ROS_ERROR("Received vertex colors, but UUIDs dont match!");
+    ROS_ERROR("Received vertex colors, but UUIDs dont match! %s != %s",
+              colorsStamped->uuid.c_str(), m_lastUuid.c_str());
     return;
   }
 
