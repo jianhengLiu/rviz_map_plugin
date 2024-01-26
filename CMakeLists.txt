@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 3.0.2)
 project(rviz_map_plugin)
 
+set(CMAKE_BUILD_TYPE "Release")
+
 set(THIS_PACKAGE_ROS_DEPS
   roscpp
   rviz
